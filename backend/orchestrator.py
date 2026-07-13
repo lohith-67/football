@@ -59,8 +59,10 @@ def resolve_match_context(venue_id: str):
         
         ctx = json.loads(text)
         ctx['is_estimated'] = False
+        print(f"[GEMINI SUCCESS] Match context resolved via Gemini for venue: {venue_id}")
         return ctx
     except Exception as e:
+        print(f"[GEMINI ERROR] Failed to resolve match context for venue {venue_id}: {str(e)}")
         # Fallback if Gemini hits rate limit (429) or other errors
         return _build_fallback_context(raw_match, raw_group, is_estimated=True)
 
