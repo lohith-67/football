@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StadiumIQ | FIFA World Cup 26 Copilot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#93000a",
+                    "inverse-on-surface": "#2d3137",
+                    "surface-dim": "#101419",
+                    "surface-bright": "#363940",
+                    "on-tertiary-fixed-variant": "#414657",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-surface": "#e0e2eb",
+                    "surface-container-lowest": "#0b0e14",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-highest": "#31353c",
+                    "secondary-fixed": "#74f5ff",
+                    "on-secondary-fixed-variant": "#004f54",
+                    "on-primary-container": "#00285c",
+                    "on-secondary-container": "#006a70",
+                    "on-tertiary-container": "#242939",
+                    "primary-container": "#4b8eff",
+                    "on-secondary-fixed": "#002022",
+                    "primary": "#adc6ff",
+                    "on-primary": "#002e69",
+                    "on-tertiary-fixed": "#161b2a",
+                    "on-surface-variant": "#c1c6d7",
+                    "surface-container": "#1c2026",
+                    "secondary-fixed-dim": "#00dbe7",
+                    "on-tertiary": "#2b3040",
+                    "surface-tint": "#adc6ff",
+                    "outline": "#8b90a0",
+                    "surface-container-low": "#181c22",
+                    "tertiary": "#c1c6da",
+                    "error": "#ffb4ab",
+                    "on-primary-fixed-variant": "#004493",
+                    "inverse-primary": "#005bc1",
+                    "secondary-container": "#00f1fe",
+                    "tertiary-container": "#8b90a3",
+                    "secondary": "#ddfcff",
+                    "on-secondary": "#00363a",
+                    "outline-variant": "#414755",
+                    "inverse-surface": "#e0e2eb",
+                    "surface-variant": "#31353c",
+                    "on-error": "#690005",
+                    "surface-container-high": "#262a31",
+                    "tertiary-fixed": "#dde2f6",
+                    "background": "#101419",
+                    "tertiary-fixed-dim": "#c1c6da",
+                    "on-background": "#e0e2eb",
+                    "on-primary-fixed": "#001a41",
+                    "primary-fixed": "#d8e2ff",
+                    "surface": "#101419"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "md": "24px",
+                    "xl": "80px",
+                    "lg": "48px",
+                    "container-max": "1280px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "data-mono": ["Geist"],
+                    "headline-md": ["Inter"],
+                    "label-sm": ["Geist"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "display-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #020408;
+            color: #e0e2eb;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(5, 10, 24, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: #adc6ff;
+            box-shadow: 0 0 30px rgba(173, 198, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .inner-glow {
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2), inset 0 -1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .primary-gradient-text {
+            background: linear-gradient(90deg, #adc6ff, #00dbe7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes pulse-cyan {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; text-shadow: 0 0 10px rgba(0, 219, 231, 0.5); }
+        }
+        .pulse-live {
+            animation: pulse-cyan 2s infinite ease-in-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Global Background Shader -->
+<div class="fixed inset-0 -z-10 overflow-hidden">
+<!-- STITCH_SHADER_START:ANIMATION_3 class="absolute inset-0 w-full h-full opacity-40" -->
+<div class="absolute inset-0 w-full h-full opacity-40" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_3" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_3');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Create a deep, moving cinematic background
+    float noise = sin(uv.x * 3.0 + u_time * 0.2) * cos(uv.y * 2.0 - u_time * 0.3);
+    noise += sin(uv.y * 5.0 + u_time * 0.5) * 0.2;
+    
+    vec3 color1 = vec3(0.02, 0.04, 0.1); // Deepest blue
+    vec3 color2 = vec3(0.01, 0.01, 0.02); // Obsidian black
+    vec3 accent = vec3(0.0, 0.48, 1.0);   // Electric blue
+    
+    vec3 finalColor = mix(color2, color1, uv.y + noise * 0.2);
+    finalColor += accent * (noise * 0.05);
+    
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_3 -->
+<div class="absolute inset-0 bg-gradient-to-b from-[#020408]/20 via-transparent to-[#020408]"></div>
+</div>
+<!-- TopAppBar Component -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-surface/60 backdrop-blur-[20px] border-b border-white/20 h-20 px-4 md:px-80 flex justify-between items-center shadow-[0_0_20px_rgba(173,198,255,0.1)]">
+<div class="flex items-center gap-2 group cursor-pointer active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary text-headline-md" style="font-variation-settings: 'FILL' 1;">sports_soccer</span>
+<span class="text-headline-md font-headline-md font-extrabold text-primary tracking-tighter">StadiumIQ</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 glass-panel text-label-sm font-label-sm hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">language</span>
+<span>English</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<!-- Simplified Dropdown -->
+<div class="absolute right-0 top-full mt-2 w-32 glass-panel rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+<div class="py-1">
+<a class="block px-4 py-2 text-label-sm hover:bg-primary-container/20" href="#">Español</a>
+<a class="block px-4 py-2 text-label-sm hover:bg-primary-container/20" href="#">Français</a>
+<a class="block px-4 py-2 text-label-sm hover:bg-primary-container/20" href="#">Português</a>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<main class="relative z-10 pt-32 flex flex-col min-h-screen">
+<!-- Hero Section -->
+<section class="flex flex-col items-center justify-center text-center px-6 mb-16">
+<h2 class="text-label-sm font-label-sm uppercase tracking-[0.2em] text-secondary-fixed-dim mb-4 pulse-live">FIFA World Cup 26 Copilot</h2>
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg mb-6 leading-tight max-w-3xl">
+                Experience the game with <span class="primary-gradient-text">Absolute Intelligence.</span>
+</h1>
+<p class="text-body-md font-body-md text-on-surface-variant max-w-xl mx-auto opacity-80">
+                Your cinematic digital gateway to the World Cup. Real-time data, instant translation, and crowd-flow intelligence at your fingertips.
+            </p>
+</section>
+<!-- Mode Selection -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 max-w-5xl mx-auto w-full mb-16">
+<!-- Fan Card -->
+<div class="group relative glass-panel inner-glow rounded-xl p-8 flex flex-col items-center text-center cursor-pointer">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+<div class="mb-6 p-4 rounded-full bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">I'm a Fan</h3>
+<p class="text-on-surface-variant font-body-md opacity-80 mb-8">
+                    Live match info, stadium navigation, and instant translation services.
+                </p>
+<div class="mt-auto w-full py-3 rounded-full bg-primary-fixed-dim/20 text-primary font-label-sm hover:bg-primary text-on-primary transition-colors">
+                    Access Portal
+                </div>
+</div>
+<!-- Staff Card -->
+<div class="group relative glass-panel inner-glow rounded-xl p-8 flex flex-col items-center text-center cursor-pointer">
+<div class="absolute inset-0 bg-gradient-to-tr from-secondary-fixed/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
+<div class="mb-6 p-4 rounded-full bg-secondary-fixed-dim/10 text-secondary-fixed-dim">
+<span class="material-symbols-outlined text-[48px]" style="font-variation-settings: 'FILL' 1;">badge</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">I'm Staff / Volunteer</h3>
+<p class="text-on-surface-variant font-body-md opacity-80 mb-8">
+                    Crowd monitoring, real-time incident response, and venue management tools.
+                </p>
+<div class="mt-auto w-full py-3 rounded-full bg-secondary-fixed-dim/20 text-secondary-fixed-dim font-label-sm hover:bg-secondary-fixed-dim hover:text-on-secondary-fixed transition-colors">
+                    Login to Command
+                </div>
+</div>
+</section>
+<!-- Feature Highlights -->
+<section class="w-full px-6 mb-24 overflow-hidden">
+<div class="max-w-container-max mx-auto">
+<div class="flex items-center gap-8 md:justify-center overflow-x-auto hide-scrollbar py-4 px-2">
+<!-- Nav -->
+<div class="flex-shrink-0 flex flex-col items-center gap-3 group">
+<div class="w-16 h-16 glass-panel inner-glow rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="explore">explore</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary transition-colors">Navigation</span>
+</div>
+<!-- Accessibility -->
+<div class="flex-shrink-0 flex flex-col items-center gap-3 group">
+<div class="w-16 h-16 glass-panel inner-glow rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="accessibility_new">accessibility_new</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary transition-colors">Accessibility</span>
+</div>
+<!-- Translator -->
+<div class="flex-shrink-0 flex flex-col items-center gap-3 group">
+<div class="w-16 h-16 glass-panel inner-glow rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="translate">translate</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary transition-colors">Live Translator</span>
+</div>
+<!-- Sustainability -->
+<div class="flex-shrink-0 flex flex-col items-center gap-3 group">
+<div class="w-16 h-16 glass-panel inner-glow rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="eco">eco</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary transition-colors">Sustainability</span>
+</div>
+<!-- Data -->
+<div class="flex-shrink-0 flex flex-col items-center gap-3 group">
+<div class="w-16 h-16 glass-panel inner-glow rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="query_stats">query_stats</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary transition-colors">Match Data</span>
+</div>
+<!-- Intelligence -->
+<div class="flex-shrink-0 flex flex-col items-center gap-3 group">
+<div class="w-16 h-16 glass-panel inner-glow rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary" data-icon="group_work">group_work</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant group-hover:text-primary transition-colors">Crowd Intel</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Scale Strip -->
+<section class="mt-auto w-full bg-surface-container-lowest/80 backdrop-blur-md border-t border-white/5 py-8">
+<div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 px-6">
+<div class="flex flex-col items-center md:items-start">
+<span class="text-headline-md font-data-mono text-primary font-bold" id="stadium-count">16</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant/60 uppercase">Stadiums</span>
+</div>
+<div class="h-px md:h-12 w-24 md:w-px bg-white/10"></div>
+<div class="flex flex-col items-center md:items-start">
+<span class="text-headline-md font-data-mono text-primary font-bold" id="country-count">3</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant/60 uppercase">Countries</span>
+</div>
+<div class="h-px md:h-12 w-24 md:w-px bg-white/10"></div>
+<div class="flex flex-col items-center md:items-start">
+<span class="text-headline-md font-data-mono text-primary font-bold" id="lang-count">60+</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant/60 uppercase">Languages</span>
+</div>
+</div>
+</section>
+</main>
+<script>
+        // Micro-interactions and Stat Counter Animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animateCount = (id, target, suffix = '') => {
+                const el = document.getElementById(id);
+                let current = 0;
+                const duration = 2000;
+                const step = target / (duration / 16);
+                
+                const update = () => {
+                    current += step;
+                    if (current >= target) {
+                        el.innerText = target + suffix;
+                    } else {
+                        el.innerText = Math.floor(current) + suffix;
+                        requestAnimationFrame(update);
+                    }
+                };
+                update();
+            };
+
+            // Trigger animation
+            setTimeout(() => {
+                animateCount('stadium-count', 16);
+                animateCount('country-count', 3);
+                animateCount('lang-count', 60, '+');
+            }, 500);
+
+            // Subtle parallax for the main content
+            window.addEventListener('mousemove', (e) => {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                const main = document.querySelector('main');
+                main.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        });
+    </script>
+</body></html>

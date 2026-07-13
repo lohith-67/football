@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StadiumIQ 2026</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <!-- Google Fonts: Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: {
+                            100: '#E6EAEB',
+                            200: '#CFD6D8',
+                            300: '#AEB8BB',
+                            400: '#8A9699',
+                            500: '#687578',
+                            600: '#4D595C',
+                            700: '#2A3236',
+                            750: '#23292C',
+                            800: '#1B2023',
+                            900: '#14181A',
+                            950: '#0C0F10',
+                        },
+                        pitch: {
+                            100: '#DCFCE7',
+                            200: '#BBEFCE',
+                            300: '#82B895',
+                            400: '#508C65',
+                            500: '#237344',
+                            600: '#1C5C37',
+                            700: '#154529',
+                            800: '#0E2E1B',
+                            900: '#092113',
+                            950: '#05140A',
+                        },
+                        gold: {
+                            100: '#FBF5E6',
+                            200: '#F3E4C0',
+                            300: '#EBD195',
+                            400: '#DAB868',
+                            500: '#C9A24B',
+                            600: '#A38137',
+                            700: '#7D6228',
+                            800: '#584419',
+                            900: '#34270D',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Framer Motion (UMD build exposes window.Motion) -->
+    <script crossorigin="anonymous" src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
+    <!-- Lucide Icons -->
+    <script crossorigin="anonymous" src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Custom Styles for 3D and glassmorphism */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        #root {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .glass-panel-dark {
+            background: linear-gradient(135deg, rgba(20, 24, 26, 0.85) 0%, rgba(27, 31, 59, 0.85) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        .accent-gradient-top {
+            position: relative;
+        }
+        .accent-gradient-top::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #3b82f6, #ec4899);
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.6);
+            z-index: 10;
+        }
+
+        .accent-gradient-bar {
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3b82f6, #ec4899);
+            box-shadow: 0 0 8px rgba(236, 72, 153, 0.5);
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        /* Prevent scrolling on the main container */
+        .app-container {
+            height: 100vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-charcoal-900 text-white">
+    <div id="root"></div>
+
+    <!-- We define components in separate script blocks so Babel can compile them -->
+    
+    <!-- Shared/Contexts -->
+    <script src="i18n_generated.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/AppContext.js?v=2"></script>
+
+    <!-- UI Components -->
+    <script type="text/babel" data-source-maps="inline" src="components/LanguageCombobox.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/VenueSwitcher.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/StadiumBackdrop.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/MatchPanel.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/MapPanel.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/StandingsTable.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/CopilotChat.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/PlanCard.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/OpsDashboard.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/OpsAuthModal.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/LiveTranslator.js?v=2"></script>
+    <script type="text/babel" data-source-maps="inline" src="components/LandingPage.js?v=2"></script>
+    
+    <!-- Main App -->
+    <script type="text/babel" data-source-maps="inline" src="app.js?v=2"></script>
+</body>
+</html>
