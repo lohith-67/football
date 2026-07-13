@@ -26,6 +26,7 @@ window.AppProvider = ({ children }) => {
     const [isFindMySeatMode, setIsFindMySeatMode] = useState(false);
     const [isTicketConfirmed, setIsTicketConfirmed] = useState(false);
     const [matchContext, setMatchContext] = useState(null);
+    const [matchContextError, setMatchContextError] = useState(false);
 
     // Fetch match context when venue changes
     useEffect(() => {
@@ -33,15 +34,18 @@ window.AppProvider = ({ children }) => {
         
         const fetchContext = async () => {
             try {
-                // Clear previous context while fetching
-                setMatchContext(null);
-                const res = await fetch(`/api/match_context/${selectedVenue.id}`);
+                // Clear previous context while fetching if we don't have one
+                if (!matchContext) setMatchContextError(false);
+                const res = await fetch(`${window.API_BASE_URL}/api/match_context/${selectedVenue.id}`);
+                if (!res.ok) throw new Error("HTTP " + res.status);
                 const data = await res.json();
                 if (isMounted) {
                     setMatchContext(data);
+                    setMatchContextError(false);
                 }
             } catch (err) {
                 console.error("Failed to fetch match context:", err);
+                if (isMounted) setMatchContextError(true);
             }
         };
 
@@ -71,7 +75,7 @@ window.AppProvider = ({ children }) => {
 
     const translateDynamicText = async (text, targetLang) => {
         try {
-            const res = await fetch('/api/translate', {
+            const res = await fetch(`${window.API_BASE_URL}/api/translate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text, target_language: targetLang })
@@ -103,7 +107,7 @@ window.AppProvider = ({ children }) => {
         ticketData, setTicketData,
         isFindMySeatMode, setIsFindMySeatMode,
         isTicketConfirmed, setIsTicketConfirmed,
-        matchContext,
+        matchContext, matchContextError,
         venues: VENUES,
         fifaLanguages: window.FIFA_LANGUAGES || { 'en': 'English', 'es': 'Spanish', 'fr': 'French', 'pt': 'Portuguese' },
         t, translateDynamicText

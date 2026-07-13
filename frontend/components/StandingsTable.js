@@ -2,7 +2,7 @@ var { useState } = React;
 var { motion, AnimatePresence } = window.Motion;
 
 window.StandingsTable = () => {
-    const { t, matchContext } = window.useAppContext();
+    const { t, matchContext, matchContextError } = window.useAppContext();
 
     if (!matchContext || !matchContext.standings) {
         return (
@@ -11,7 +11,13 @@ window.StandingsTable = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="glass-panel-dark rounded-xl p-5 flex flex-col h-full border border-charcoal-700/50 shadow-2xl relative overflow-hidden items-center justify-center"
             >
-                <div className="text-charcoal-400 font-semibold animate-pulse">Loading standings...</div>
+                {matchContextError ? (
+                    <div className="text-red-400 font-semibold flex items-center gap-2">
+                        <span className="text-xl">⚠️</span> {t('error_loading')}
+                    </div>
+                ) : (
+                    <div className="text-charcoal-400 font-semibold animate-pulse">Loading standings...</div>
+                )}
             </motion.div>
         );
     }

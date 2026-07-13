@@ -15,7 +15,7 @@ window.OpsAuthModal = () => {
         setLoading(true);
 
         try {
-            const res = await fetch('/api/ops/verify', {
+            const res = await fetch(`${window.API_BASE_URL}/api/ops/verify`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ passcode })

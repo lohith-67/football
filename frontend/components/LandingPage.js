@@ -75,7 +75,7 @@ window.LandingPage = () => {
                 transition={{ duration: 25, ease: "easeOut" }}
             >
                 <img 
-                    src="images/stadium-hero.jpg" 
+                    src="/images/stadium-hero.jpg" 
                     alt="Stadium Background" 
                     className="w-full h-full object-cover"
                     style={{
