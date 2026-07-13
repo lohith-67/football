@@ -65,7 +65,9 @@ window.translations = {
         "maintenance": "Maintenance",
         "find_my_seat": "Find My Seat",
         "your_seat": "Your Seat",
-        "walk_time": "Walk time"
+        "walk_time": "Walk time",
+        "error_loading": "Unable to load match data",
+        "retry": "Retry"
     },
     "fr": {
         "app_title": "StadiumIQ",
@@ -133,7 +135,9 @@ window.translations = {
         "maintenance": "Maintenance",
         "find_my_seat": "Trouver Ma Place",
         "your_seat": "Votre Place",
-        "walk_time": "Temps de marche"
+        "walk_time": "Temps de marche",
+        "error_loading": "Impossible de charger les données du match",
+        "retry": "Réessayer"
     },
     "es": {
         "app_title": "StadiumIQ",
@@ -201,7 +205,9 @@ window.translations = {
         "maintenance": "Mantenimiento",
         "find_my_seat": "Encontrar Mi Asiento",
         "your_seat": "Tu Asiento",
-        "walk_time": "Tiempo a pie"
+        "walk_time": "Tiempo a pie",
+        "error_loading": "No se pudieron cargar los datos del partido",
+        "retry": "Reintentar"
     },
     "pt": {
         "app_title": "StadiumIQ",
@@ -269,7 +275,9 @@ window.translations = {
         "maintenance": "Manutenção",
         "find_my_seat": "Encontrar Meu Assento",
         "your_seat": "Seu Assento",
-        "walk_time": "Tempo de caminhada"
+        "walk_time": "Tempo de caminhada",
+        "error_loading": "Não foi possível carregar os dados da partida",
+        "retry": "Tentar novamente"
     },
     "af": {},
     "sq": {},

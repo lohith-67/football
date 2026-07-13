@@ -27,6 +27,7 @@ window.AppProvider = ({ children }) => {
     const [isTicketConfirmed, setIsTicketConfirmed] = useState(false);
     const [matchContext, setMatchContext] = useState(null);
     const [matchContextError, setMatchContextError] = useState(false);
+    const [retryTrigger, setRetryTrigger] = useState(0);
 
     // Fetch match context when venue changes
     useEffect(() => {
@@ -57,7 +58,7 @@ window.AppProvider = ({ children }) => {
             isMounted = false;
             clearInterval(pollInterval);
         };
-    }, [selectedVenue]);
+    }, [selectedVenue, retryTrigger]);
 
     const t = (key) => {
         if (window.translations && window.translations[language] && window.translations[language][key]) {
@@ -96,6 +97,8 @@ window.AppProvider = ({ children }) => {
         }
     };
 
+    const retryFetchMatchData = () => setRetryTrigger(prev => prev + 1);
+
     const value = {
         mode, setMode,
         opsToken, setOpsToken,
@@ -107,7 +110,7 @@ window.AppProvider = ({ children }) => {
         ticketData, setTicketData,
         isFindMySeatMode, setIsFindMySeatMode,
         isTicketConfirmed, setIsTicketConfirmed,
-        matchContext, matchContextError,
+        matchContext, matchContextError, retryFetchMatchData,
         venues: VENUES,
         fifaLanguages: window.FIFA_LANGUAGES || { 'en': 'English', 'es': 'Spanish', 'fr': 'French', 'pt': 'Portuguese' },
         t, translateDynamicText

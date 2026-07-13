@@ -2,7 +2,7 @@ var { useState, useEffect } = React;
 var { motion } = window.Motion;
 
 window.MatchPanel = () => {
-    const { selectedVenue, t, isFindMySeatMode, setIsFindMySeatMode, matchContext, matchContextError } = window.useAppContext();
+    const { selectedVenue, t, isFindMySeatMode, setIsFindMySeatMode, matchContext, matchContextError, retryFetchMatchData } = window.useAppContext();
     
     const [countdownDiff, setCountdownDiff] = useState(null);
     const [lastUpdated, setLastUpdated] = useState("");
@@ -46,8 +46,16 @@ window.MatchPanel = () => {
                 className="glass-panel-dark rounded-xl p-6 w-full shadow-2xl border border-charcoal-700/50 flex items-center justify-center h-48"
             >
                 {matchContextError ? (
-                    <div className="text-red-400 font-semibold flex items-center gap-2">
-                        <span className="text-xl">⚠️</span> {t('error_loading')}
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="text-red-400 font-semibold flex items-center gap-2">
+                            <span className="text-xl">⚠️</span> {t('error_loading')}
+                        </div>
+                        <button 
+                            onClick={retryFetchMatchData}
+                            className="bg-charcoal-700 hover:bg-charcoal-600 text-charcoal-200 px-4 py-1.5 rounded-lg text-sm font-medium transition"
+                        >
+                            {t('retry') || 'Retry'}
+                        </button>
                     </div>
                 ) : (
                     <div className="text-charcoal-400 font-semibold animate-pulse">Loading match data...</div>

@@ -2,7 +2,7 @@ var { useState } = React;
 var { motion, AnimatePresence } = window.Motion;
 
 window.StandingsTable = () => {
-    const { t, matchContext, matchContextError } = window.useAppContext();
+    const { t, matchContext, matchContextError, retryFetchMatchData } = window.useAppContext();
 
     if (!matchContext || !matchContext.standings) {
         return (
@@ -12,8 +12,16 @@ window.StandingsTable = () => {
                 className="glass-panel-dark rounded-xl p-5 flex flex-col h-full border border-charcoal-700/50 shadow-2xl relative overflow-hidden items-center justify-center"
             >
                 {matchContextError ? (
-                    <div className="text-red-400 font-semibold flex items-center gap-2">
-                        <span className="text-xl">⚠️</span> {t('error_loading')}
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="text-red-400 font-semibold flex items-center gap-2">
+                            <span className="text-xl">⚠️</span> {t('error_loading')}
+                        </div>
+                        <button 
+                            onClick={retryFetchMatchData}
+                            className="bg-charcoal-700 hover:bg-charcoal-600 text-charcoal-200 px-4 py-1.5 rounded-lg text-sm font-medium transition"
+                        >
+                            {t('retry') || 'Retry'}
+                        </button>
                     </div>
                 ) : (
                     <div className="text-charcoal-400 font-semibold animate-pulse">Loading standings...</div>
