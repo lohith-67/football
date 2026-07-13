@@ -2,9 +2,9 @@ var { createContext, useState, useEffect, useContext } = React;
 
 // Define default venues
 const VENUES = [
-    { id: 'metlife', name: 'New York/New Jersey Stadium', city: 'East Rutherford', country: 'USA', image: 'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&q=80&w=2000' },
-    { id: 'azteca', name: 'Estadio Azteca', city: 'Mexico City', country: 'Mexico', image: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&q=80&w=2000' },
-    { id: 'bmo', name: 'Toronto Stadium', city: 'Toronto', country: 'Canada', image: 'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&q=80&w=2000' }, // Using a generic stadium image for now
+    { id: 'metlife', name: 'New York/New Jersey Stadium', city: 'East Rutherford', country: 'USA', image: '/images/stadium-hero.jpg' },
+    { id: 'azteca', name: 'Estadio Azteca', city: 'Mexico City', country: 'Mexico', image: '/images/stadium-hero.jpg' },
+    { id: 'bmo', name: 'Toronto Stadium', city: 'Toronto', country: 'Canada', image: '/images/stadium-hero.jpg' }, // Using a generic stadium image for now
     // More venues can be added here
 ];
 
