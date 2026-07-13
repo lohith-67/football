@@ -33,7 +33,20 @@ export function scoreRoute(route, priority) {
  */
 export function getSeatCoordinates(section, row, seat, seatingChart) {
     if (!seatingChart || !seatingChart[section]) return null;
-    return seatingChart[section]; // In real implementation, would calculate precise offset based on row/seat
+    
+    // Parse row and seat numbers to create a deterministic offset
+    const rowNum = parseInt(row, 10) || 0;
+    const seatNum = parseInt(seat, 10) || 0;
+    
+    // Base coordinates
+    const base = seatingChart[section];
+    
+    // Add small offsets based on row and seat to ensure unique coordinates
+    return {
+        ...base,
+        cx: base.cx + (seatNum * 2),
+        cy: base.cy + (rowNum * 2)
+    };
 }
 
 /**

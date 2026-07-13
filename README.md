@@ -17,11 +17,11 @@ StadiumIQ is a GenAI-powered web application designed for the FIFA World Cup 202
 
 To meet the rigorous standards of the FIFA 2026 operational environment, the codebase has undergone a comprehensive audit across six key categories:
 
-*   **Testing:** Implemented `vitest` and `jsdom` to provide deep unit and integration coverage for critical business logic (seat lookups, translation fallbacks, route scoring, incident classification) independent of UI rendering.
-*   **Accessibility (a11y):** Ensured full WCAG AA compliance by upgrading all generic `<div>` containers to semantic HTML5 landmarks (`<nav>`, `<main>`, `<header>`), implementing comprehensive ARIA properties (`aria-live`, `aria-label`, `aria-expanded`), and strictly enforcing contrast ratios across the dark-mode palette.
-*   **Security Hardening:** Secured the Ops Mode by fully removing the hardcoded fallback token (`STADIUM26`) from client bundles. All authentications enforce server-side validation against `API_BASE_URL`. Additionally, applied robust sanitization (trimming and regex replacement) to user input fields before submission to the GenAI API to mitigate prompt injection.
-*   **Efficiency:** Improved time-to-interactive metrics by enforcing `loading="lazy"` and `fetchpriority` attributes on large hero images, minimizing unnecessary DOM re-renders in the React tree.
-*   **Code Quality:** Extracted monolithic component functions into pure, testable modules (`utils/logic.js`), eliminating duplicate business rules and ensuring easier maintenance.
+*   **Testing:** Implemented `vitest` and `jsdom` to provide deep unit and integration coverage for critical business logic. Added edge-case integration tests for the Ops Passcode modal and seat lookup logic. A continuous integration workflow (`.github/workflows/test.yml`) executes the test suite on every push.
+*   **Accessibility (a11y):** Ensured full WCAG AA compliance by upgrading all generic `<div>` containers to semantic HTML5 landmarks, implementing comprehensive ARIA properties, and strictly enforcing contrast ratios across the dark-mode palette.
+*   **Security Hardening:** Secured the Ops Mode by removing hardcoded fallback tokens and adding strict input validation for the passcode. Added comprehensive security headers (X-Frame-Options, X-Content-Type-Options, Content-Security-Policy) to `netlify.toml` to prevent injection and clickjacking attacks.
+*   **Efficiency:** Improved time-to-interactive metrics by conditionally lazy-loading heavy React components (`OpsDashboard`, `LiveTranslator`, `LandingPage`) using custom dynamic script injection (`LazyBabelComponent`). Compressed the main hero banner to WebP, and aggressively memoized volatile UI elements (`StandingsTable`, `ZoneSensorFeed`) via `React.memo` to eliminate redundant renders.
+*   **Code Quality:** Extracted monolithic component functions into pure, testable modules (`utils/logic.js`). Purged unused script references and dead code segments from the frontend bundle to maintain an immaculate footprint.
 
 ## Architecture
 

@@ -31,12 +31,7 @@ class OpsSafeBoundary extends React.Component {
         if (!this.props.component) {
             return (
                 <div className="flex flex-col items-center justify-center h-full w-full p-8 text-charcoal-100 bg-charcoal-900 rounded-2xl border border-red-500/50 shadow-2xl">
-                    <h1 className="text-2xl font-bold text-red-500 mb-4 flex items-center gap-2">
-                        <span>⚠️</span> Ops Mode Component Failed to Load
-                    </h1>
-                    <div className="w-full max-w-4xl bg-charcoal-950 p-6 rounded-xl border border-charcoal-700 overflow-auto text-left mb-6">
-                        <p className="text-red-400 font-mono text-sm font-bold">window.OpsDashboard is undefined. Check console for Script errors.</p>
-                    </div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pitch-500"></div>
                 </div>
             );
         }
@@ -44,6 +39,62 @@ class OpsSafeBoundary extends React.Component {
         return <Component />;
     }
 }
+
+const LazyBabelComponent = ({ scriptUrl, componentName, ...props }) => {
+    const [Component, setComponent] = useState(null);
+
+    useEffect(() => {
+        if (window[componentName]) {
+            setComponent(() => window[componentName]);
+            return;
+        }
+
+        const loadScript = () => {
+            return new Promise((resolve, reject) => {
+                if (document.querySelector(`script[src="${scriptUrl}"]`)) {
+                    const checkInterval = setInterval(() => {
+                        if (window[componentName]) {
+                            clearInterval(checkInterval);
+                            resolve();
+                        }
+                    }, 50);
+                    return;
+                }
+                const script = document.createElement('script');
+                script.type = 'text/babel';
+                script.setAttribute('data-source-maps', 'inline');
+                script.src = scriptUrl;
+                script.onload = () => {
+                    if (window.Babel) {
+                        window.Babel.transformScriptTags().then(resolve).catch(reject);
+                    } else {
+                        resolve();
+                    }
+                };
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        };
+
+        loadScript().then(() => {
+            const check = setInterval(() => {
+                if (window[componentName]) {
+                    clearInterval(check);
+                    setComponent(() => window[componentName]);
+                }
+            }, 50);
+        });
+    }, [scriptUrl, componentName]);
+
+    if (!Component) {
+        return (
+            <div className="flex items-center justify-center h-full w-full">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pitch-500"></div>
+            </div>
+        );
+    }
+    return <Component {...props} />;
+};
 
 const App = () => {
     const { mode, t } = window.useAppContext();
@@ -54,9 +105,6 @@ const App = () => {
     const StandingsTable = window.StandingsTable;
     const PlanCard = window.PlanCard;
     const CopilotChat = window.CopilotChat;
-    const OpsDashboard = window.OpsDashboard;
-    const LiveTranslator = window.LiveTranslator;
-    const LandingPage = window.LandingPage;
     const OpsAuthModal = window.OpsAuthModal;
 
     const [showTranslator, setShowTranslator] = React.useState(false);
@@ -111,7 +159,7 @@ const App = () => {
                             transition={{ duration: 0.5 }}
                             className="w-full h-screen"
                         >
-                            <LandingPage />
+                            <LazyBabelComponent scriptUrl="components/LandingPage.js?v=2" componentName="LandingPage" />
                         </motion.div>
                     ) : mode === 'fan' ? (
                         <motion.div 
@@ -160,7 +208,7 @@ const App = () => {
                             transition={{ duration: 0.4 }}
                             className="w-full h-[calc(100vh-120px)]"
                         >
-                            <OpsSafeBoundary component={OpsDashboard} />
+                            <OpsSafeBoundary component={(props) => <LazyBabelComponent scriptUrl="components/OpsDashboard.js?v=2" componentName="OpsDashboard" {...props} />} />
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -168,7 +216,7 @@ const App = () => {
             
             {/* Overlay components */}
             <AnimatePresence>
-                {showTranslator && <LiveTranslator onClose={() => setShowTranslator(false)} />}
+                {showTranslator && <LazyBabelComponent scriptUrl="components/LiveTranslator.js?v=2" componentName="LiveTranslator" onClose={() => setShowTranslator(false)} />}
                 <OpsAuthModal />
             </AnimatePresence>
             {/* Floating Action Button for Live Translator removed as per request */}

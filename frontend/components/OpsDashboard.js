@@ -30,7 +30,7 @@ const KPICard = ({ title, value, sub, icon, iconColor, isUrgent }) => {
     );
 };
 
-const ZoneSensorFeed = () => {
+const ZoneSensorFeed = React.memo(() => {
     const { t } = window.useAppContext();
     const zones = [
         { name: 'Zone A (North)', density: 92, color: 'bg-red-500' },
@@ -63,7 +63,7 @@ const ZoneSensorFeed = () => {
             </div>
         </div>
     );
-};
+});
 
 const QuickPhraseTranslator = () => {
     const { language } = window.useAppContext();

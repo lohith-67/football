@@ -47,15 +47,28 @@ describe('Seat-Coordinate Lookup', () => {
         "111": { path: "M...", cx: 450, cy: 110, gate: "Gate A" }
     };
 
+    it('returns unique coordinates for different seats in the same section', () => {
+        const seat1 = getSeatCoordinates("111", "1", "1", mockChart);
+        const seat2 = getSeatCoordinates("111", "1", "2", mockChart);
+        expect(seat1.cx).not.toBe(seat2.cx);
+        expect(seat1.cy).toBe(seat2.cy); // Same row
+    });
+
     it('returns correct coordinates for a valid section', () => {
         const result = getSeatCoordinates("111", "10", "5", mockChart);
         expect(result).not.toBeNull();
-        expect(result.cx).toBe(450);
+        expect(result.cx).toBe(460); // 450 + 5*2
+        expect(result.cy).toBe(130); // 110 + 10*2
         expect(result.gate).toBe("Gate A");
     });
 
     it('returns null for an invalid section', () => {
         const result = getSeatCoordinates("999", "10", "5", mockChart);
+        expect(result).toBeNull();
+    });
+
+    it('returns null for empty section', () => {
+        const result = getSeatCoordinates("", "10", "5", mockChart);
         expect(result).toBeNull();
     });
 });

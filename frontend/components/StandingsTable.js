@@ -1,7 +1,7 @@
 var { useState } = React;
 var { motion, AnimatePresence } = window.Motion;
 
-window.StandingsTable = () => {
+const StandingsTable = () => {
     const { t, matchContext, matchContextError, retryFetchMatchData } = window.useAppContext();
 
     if (!matchContext || !matchContext.standings) {
@@ -107,3 +107,5 @@ window.StandingsTable = () => {
         </motion.div>
     );
 };
+
+window.StandingsTable = React.memo(StandingsTable);

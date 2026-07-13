@@ -74,4 +74,46 @@ describe('OpsAuthModal Integration', () => {
             expect(screen.getByText('Invalid passcode')).toBeDefined();
         });
     });
+
+    it('displays error on empty passcode', async () => {
+        window.useAppContext = () => ({
+            isOpsAuthModalOpen: true,
+            setIsOpsAuthModalOpen: vi.fn(),
+            setOpsToken: vi.fn(),
+            setMode: vi.fn(),
+        });
+
+        render(<OpsAuthModal />);
+
+        // Submit without typing
+        fireEvent.click(screen.getByRole('button', { name: 'Enter' }));
+
+        await waitFor(() => {
+            expect(screen.getByText('Passcode is required')).toBeDefined();
+        });
+        expect(global.fetch).not.toHaveBeenCalled();
+    });
+
+    it('displays generic error on malformed/500 API response', async () => {
+        window.useAppContext = () => ({
+            isOpsAuthModalOpen: true,
+            setIsOpsAuthModalOpen: vi.fn(),
+            setOpsToken: vi.fn(),
+            setMode: vi.fn(),
+        });
+
+        global.fetch.mockResolvedValueOnce({
+            ok: false,
+            status: 500
+        });
+
+        render(<OpsAuthModal />);
+
+        fireEvent.change(screen.getByPlaceholderText('Enter passcode'), { target: { value: 'ANY' } });
+        fireEvent.click(screen.getByRole('button', { name: 'Enter' }));
+
+        await waitFor(() => {
+            expect(screen.getByText('Invalid passcode')).toBeDefined();
+        });
+    });
 });

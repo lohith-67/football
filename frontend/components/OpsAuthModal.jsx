@@ -11,6 +11,10 @@ window.OpsAuthModal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!passcode.trim()) {
+            setError('Passcode is required');
+            return;
+        }
         setError('');
         setLoading(true);
 
