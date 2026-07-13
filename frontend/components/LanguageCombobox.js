@@ -38,6 +38,9 @@ window.LanguageCombobox = ({ value, onChange, position = 'bottom', className = "
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
+                aria-label="Select Language"
                 className="w-full text-left bg-charcoal-800 text-white rounded-lg px-4 py-2 border border-charcoal-700 shadow-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-pitch-500 hover:bg-charcoal-700 transition flex justify-between items-center"
             >
                 <span className="truncate">{selectedName}</span>
@@ -67,7 +70,7 @@ window.LanguageCombobox = ({ value, onChange, position = 'bottom', className = "
                         <div className="max-h-60 overflow-y-auto">
                             {pinnedLanguages.length > 0 && (
                                 <div className="py-1">
-                                    <div className="px-3 py-1 text-xs font-bold text-charcoal-500 uppercase tracking-wider bg-charcoal-900/50">
+                                    <div className="px-3 py-1 text-xs font-bold text-charcoal-300 uppercase tracking-wider bg-charcoal-900/50">
                                         Suggested
                                     </div>
                                     {pinnedLanguages.map(l => (
@@ -84,7 +87,7 @@ window.LanguageCombobox = ({ value, onChange, position = 'bottom', className = "
 
                             {otherLanguages.length > 0 && (
                                 <div className="py-1 border-t border-charcoal-800">
-                                    <div className="px-3 py-1 text-xs font-bold text-charcoal-500 uppercase tracking-wider bg-charcoal-900/50">
+                                    <div className="px-3 py-1 text-xs font-bold text-charcoal-300 uppercase tracking-wider bg-charcoal-900/50">
                                         All Languages
                                     </div>
                                     {otherLanguages.map(l => (
@@ -100,7 +103,7 @@ window.LanguageCombobox = ({ value, onChange, position = 'bottom', className = "
                             )}
 
                             {filteredLanguages.length === 0 && (
-                                <div className="px-4 py-3 text-sm text-charcoal-500 text-center">
+                                <div className="px-4 py-3 text-sm text-charcoal-300 text-center">
                                     No languages found
                                 </div>
                             )}

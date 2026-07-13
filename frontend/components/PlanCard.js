@@ -66,7 +66,7 @@ window.PlanCard = () => {
                     >
                         <div className="p-5 space-y-4">
                             <div>
-                                <label className="block text-[10px] uppercase text-charcoal-500 font-bold mb-1">Starting Point</label>
+                                <label className="block text-[10px] uppercase text-charcoal-300 font-bold mb-1">Starting Point</label>
                                 <input 
                                     type="text" 
                                     value={startLocation}
@@ -76,7 +76,7 @@ window.PlanCard = () => {
                             </div>
 
                             <div>
-                                <label className="block text-[10px] uppercase text-charcoal-500 font-bold mb-2">Transport Preferences</label>
+                                <label className="block text-[10px] uppercase text-charcoal-300 font-bold mb-2">Transport Preferences</label>
                                 <div className="flex flex-wrap gap-2">
                                     <button 
                                         onClick={() => toggleTransport('transit')}
@@ -94,7 +94,7 @@ window.PlanCard = () => {
                             </div>
 
                             <div>
-                                <label className="block text-[10px] uppercase text-charcoal-500 font-bold mb-2">Priority</label>
+                                <label className="block text-[10px] uppercase text-charcoal-300 font-bold mb-2">Priority</label>
                                 <div className="flex gap-2">
                                     {['Fastest', 'Lowest Carbon', 'Most Accessible'].map(p => (
                                         <button 
@@ -109,7 +109,7 @@ window.PlanCard = () => {
                             </div>
 
                             <div className="flex items-center justify-between">
-                                <label className="text-[10px] uppercase text-charcoal-500 font-bold">Accessible Route Required</label>
+                                <label className="text-[10px] uppercase text-charcoal-300 font-bold">Accessible Route Required</label>
                                 <button 
                                     onClick={() => setAccRequired(!accRequired)}
                                     className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${accRequired ? 'bg-pitch-500' : 'bg-charcoal-700'}`}
@@ -188,7 +188,7 @@ window.PlanCard = () => {
                 )}
 
                 {!transports.transit && !transports.rideshare && !transports.walking && (
-                    <div className="text-center text-charcoal-500 py-4 text-sm font-medium border border-dashed border-charcoal-700 rounded-lg">
+                    <div className="text-center text-charcoal-300 py-4 text-sm font-medium border border-dashed border-charcoal-700 rounded-lg">
                         No transport modes selected.
                     </div>
                 )}

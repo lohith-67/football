@@ -42,7 +42,7 @@ window.CopilotChat = () => {
         e.preventDefault();
         if(!input.trim() || isLoading) return;
         
-        const userMessage = input;
+        const userMessage = input.trim();
         setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
         setInput('');
         setIsLoading(true);
@@ -101,7 +101,7 @@ window.CopilotChat = () => {
             
             {isExpanded && (
                 <>
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4" aria-live="polite">
                 {messages.map((msg, idx) => {
                     const isRateLimited = msg.fallback;
                     const cleanText = msg.text;
@@ -138,16 +138,17 @@ window.CopilotChat = () => {
             </div>
             
             <form onSubmit={handleSubmit} className="p-4 border-t border-charcoal-600/60 bg-charcoal-800/40 rounded-b-2xl flex gap-3">
-                <button type="button" className="bg-charcoal-700 hover:bg-charcoal-600 px-4 rounded-xl text-xl transition-colors shadow-sm" title="Voice Input">
+                <button type="button" aria-label="Voice Input" className="bg-charcoal-700 hover:bg-charcoal-600 px-4 rounded-xl text-xl transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-pitch-500" title="Voice Input">
                     🎤
                 </button>
                 <div className="flex flex-1">
                     <input 
                         type="text"
+                        aria-label="Chat message"
                         value={input}
                         onChange={e => setInput(e.target.value)}
                         placeholder={mode === 'fan' ? t('fan_placeholder') : t('ops_placeholder')}
-                        className="flex-1 w-full bg-charcoal-900 text-white rounded-l-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-pitch-500 border border-charcoal-700 border-r-0 disabled:opacity-50"
+                        className="flex-1 w-full bg-charcoal-900 text-white rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pitch-500 border border-charcoal-700 border-r-0 disabled:opacity-50"
                         disabled={isLoading}
                     />
                     <button 

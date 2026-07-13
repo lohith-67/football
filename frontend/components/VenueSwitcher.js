@@ -13,6 +13,7 @@ window.VenueSwitcher = () => {
             </div>
 
             <select 
+                aria-label="Select Venue"
                 className="bg-charcoal-800 text-white rounded-lg px-2 sm:px-4 py-2 border border-charcoal-700 shadow-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-pitch-500 hover:bg-charcoal-700 transition cursor-pointer max-w-[150px] sm:max-w-none text-ellipsis"
                 value={selectedVenue.id}
                 onChange={(e) => {
@@ -26,7 +27,8 @@ window.VenueSwitcher = () => {
             </select>
             
             <button 
-                className={`flex-shrink-0 text-white px-3 sm:px-4 py-2 rounded-lg shadow-lg font-medium transition text-sm flex items-center gap-2 ${mode === 'fan' ? 'bg-red-600 hover:bg-red-500' : 'bg-pitch-600 hover:bg-pitch-500'}`}
+                aria-label={mode === 'fan' ? 'Switch to Ops Mode' : 'Switch to Fan Mode'}
+                className={`flex-shrink-0 text-white px-3 sm:px-4 py-2 rounded-lg shadow-lg font-medium transition text-sm flex items-center gap-2 ${mode === 'fan' ? 'bg-red-600 hover:bg-red-500' : 'bg-pitch-600 hover:bg-pitch-500'} focus:outline-none focus:ring-2 focus:ring-pitch-500`}
                 onClick={() => {
                     if (mode === 'fan') {
                         requestOpsMode();

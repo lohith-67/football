@@ -108,7 +108,7 @@ window.MatchPanel = () => {
                         <span className="mr-1.5 opacity-70">⏱️</span>
                         {countdownDisplay}
                     </div>
-                    {lastUpdated && <div className="text-[10px] text-charcoal-500">Last updated: {lastUpdated}</div>}
+                    {lastUpdated && <div className="text-[10px] text-charcoal-300">Last updated: {lastUpdated}</div>}
                     {matchContext.is_estimated && <div className="text-[10px] text-yellow-500 mt-1">⚠️ Live data temporarily estimated</div>}
                 </div>
                 <div className="flex items-center gap-4">

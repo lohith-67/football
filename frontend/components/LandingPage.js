@@ -77,6 +77,8 @@ window.LandingPage = () => {
                 <img 
                     src="/images/stadium-hero.jpg" 
                     alt="Stadium Background" 
+                    loading="lazy"
+                    fetchpriority="low"
                     className="w-full h-full object-cover"
                     style={{
                         filter: 'contrast(1.05) saturate(1.1) brightness(0.95)'

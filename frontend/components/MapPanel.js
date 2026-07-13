@@ -24,16 +24,10 @@ const SEATING_CHART = {
 };
 
 function getSeatCoordinates(venueId, section, row, seat) {
-    // In a real app, this would fetch from a venue-specific database
-    // For now, we look up the section in our mock database
-    const sectionData = SEATING_CHART[section];
-    if (!sectionData) {
-        return null;
+    if (window.StadiumLogic) {
+        return window.StadiumLogic.getSeatCoordinates(section, row, seat, SEATING_CHART);
     }
-    
-    // Row/Seat level precision could slightly offset the cx/cy
-    // For this implementation, we return section-level coordinates
-    return sectionData;
+    return null;
 }
 
 window.MapPanel = () => {
@@ -79,31 +73,31 @@ window.MapPanel = () => {
                         
                         <div className="flex gap-2 mb-6 w-full max-w-sm">
                             <div className="flex-1">
-                                <label className="block text-[10px] uppercase text-charcoal-500 font-bold mb-1">Section</label>
+                                <label className="block text-[10px] uppercase text-charcoal-300 font-bold mb-1">Section</label>
                                 <input 
                                     type="text" 
                                     value={tempSection} 
-                                    onChange={e => setTempSection(e.target.value)} 
+                                    onChange={e => setTempSection(e.target.value.trim().replace(/[^a-zA-Z0-9]/g, ''))} 
                                     className="w-full bg-charcoal-800 text-white rounded border border-charcoal-700 px-3 py-2 text-sm focus:border-pitch-500 outline-none transition" 
                                     placeholder="e.g. 112"
                                 />
                             </div>
                             <div className="flex-1">
-                                <label className="block text-[10px] uppercase text-charcoal-500 font-bold mb-1">Row</label>
+                                <label className="block text-[10px] uppercase text-charcoal-300 font-bold mb-1">Row</label>
                                 <input 
                                     type="text" 
                                     value={tempRow} 
-                                    onChange={e => setTempRow(e.target.value)} 
+                                    onChange={e => setTempRow(e.target.value.trim().replace(/[^a-zA-Z0-9]/g, ''))} 
                                     className="w-full bg-charcoal-800 text-white rounded border border-charcoal-700 px-3 py-2 text-sm focus:border-pitch-500 outline-none transition"
                                     placeholder="e.g. 15"
                                 />
                             </div>
                             <div className="flex-1">
-                                <label className="block text-[10px] uppercase text-charcoal-500 font-bold mb-1">Seat</label>
+                                <label className="block text-[10px] uppercase text-charcoal-300 font-bold mb-1">Seat</label>
                                 <input 
                                     type="text" 
                                     value={tempSeat} 
-                                    onChange={e => setTempSeat(e.target.value)} 
+                                    onChange={e => setTempSeat(e.target.value.trim().replace(/[^a-zA-Z0-9]/g, ''))} 
                                     className="w-full bg-charcoal-800 text-white rounded border border-charcoal-700 px-3 py-2 text-sm focus:border-pitch-500 outline-none transition"
                                     placeholder="e.g. 14"
                                 />

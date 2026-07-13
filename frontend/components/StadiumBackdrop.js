@@ -17,6 +17,7 @@ window.StadiumBackdrop = () => {
                     <img 
                         src={selectedVenue.image} 
                         alt={selectedVenue.name}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                     />
                 </motion.div>

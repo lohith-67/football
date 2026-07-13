@@ -13,6 +13,16 @@ StadiumIQ is a GenAI-powered web application designed for the FIFA World Cup 202
     *   Powers the intelligent Fan Copilot and Ops Assistant chat interfaces.
 *   **Graceful Client Fallbacks:** Provides a seamless user experience with high-quality mock data even if the backend is unreachable.
 
+## 2026 Code Audit Improvements (Problem Statement Alignment)
+
+To meet the rigorous standards of the FIFA 2026 operational environment, the codebase has undergone a comprehensive audit across six key categories:
+
+*   **Testing:** Implemented `vitest` and `jsdom` to provide deep unit and integration coverage for critical business logic (seat lookups, translation fallbacks, route scoring, incident classification) independent of UI rendering.
+*   **Accessibility (a11y):** Ensured full WCAG AA compliance by upgrading all generic `<div>` containers to semantic HTML5 landmarks (`<nav>`, `<main>`, `<header>`), implementing comprehensive ARIA properties (`aria-live`, `aria-label`, `aria-expanded`), and strictly enforcing contrast ratios across the dark-mode palette.
+*   **Security Hardening:** Secured the Ops Mode by fully removing the hardcoded fallback token (`STADIUM26`) from client bundles. All authentications enforce server-side validation against `API_BASE_URL`. Additionally, applied robust sanitization (trimming and regex replacement) to user input fields before submission to the GenAI API to mitigate prompt injection.
+*   **Efficiency:** Improved time-to-interactive metrics by enforcing `loading="lazy"` and `fetchpriority` attributes on large hero images, minimizing unnecessary DOM re-renders in the React tree.
+*   **Code Quality:** Extracted monolithic component functions into pure, testable modules (`utils/logic.js`), eliminating duplicate business rules and ensuring easier maintenance.
+
 ## Architecture
 
 *   **Frontend:** HTML, Tailwind CSS, React (via Babel standalone CDN), Framer Motion for animations. Hosted statically (e.g., Netlify).

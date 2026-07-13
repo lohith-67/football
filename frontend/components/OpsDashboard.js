@@ -280,7 +280,7 @@ const OpsDashboardContent = () => {
                             </span>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto pr-2 space-y-4">
+                        <div className="flex-1 overflow-y-auto pr-2 space-y-4" aria-live="polite">
                             <CommandFeedAlert 
                                 title={t('gate_bottleneck')}
                                 severity="red"

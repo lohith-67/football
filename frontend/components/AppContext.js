@@ -79,15 +79,8 @@ window.AppProvider = ({ children }) => {
     }, [selectedVenue, retryTrigger]);
 
     const t = (key) => {
-        if (window.translations && window.translations[language] && window.translations[language][key]) {
-            return window.translations[language][key];
-        }
-        
-        console.warn(`Missing translation for key: "${key}" in language: "${language}"`);
-
-        // Try regional fallback (e.g. es-MX -> es) if we had dialects, but here we just fallback to EN
-        if (window.translations && window.translations['en'] && window.translations['en'][key]) {
-            return window.translations['en'][key];
+        if (window.StadiumLogic) {
+            return window.StadiumLogic.translate(key, language, window.translations);
         }
         return key;
     };

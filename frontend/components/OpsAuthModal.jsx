@@ -16,30 +16,20 @@ window.OpsAuthModal = () => {
 
         try {
             let token = '';
-            try {
-                const res = await fetch(`${window.API_BASE_URL}/api/ops/verify`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ passcode })
-                });
+            const res = await fetch(`${window.API_BASE_URL || ''}/api/ops/verify`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ passcode })
+            });
 
-                if (!res.ok) {
-                    if (res.status === 429) {
-                        throw new Error('Too many attempts. Please try again later.');
-                    }
-                    throw new Error('Invalid passcode');
+            if (!res.ok) {
+                if (res.status === 429) {
+                    throw new Error('Too many attempts. Please try again later.');
                 }
-                const data = await res.json();
-                token = data.token;
-            } catch (err) {
-                // Fallback to client-side auth if backend is unreachable or returns 404
-                if (passcode === 'STADIUM26') {
-                    console.warn("Backend unreachable, using client-side fallback auth");
-                    token = 'mock-ops-token-' + Date.now();
-                } else {
-                    throw new Error('Invalid passcode');
-                }
+                throw new Error('Invalid passcode');
             }
+            const data = await res.json();
+            token = data.token;
 
             setOpsToken(token);
             setIsOpsAuthModalOpen(false);
@@ -95,14 +85,14 @@ window.OpsAuthModal = () => {
                             <button
                                 type="button"
                                 onClick={() => setIsOpsAuthModalOpen(false)}
-                                className="flex-1 py-3 px-4 rounded-xl text-charcoal-300 font-semibold hover:bg-charcoal-800 transition border border-charcoal-700 hover:text-white"
+                                className="flex-1 py-3 px-4 rounded-xl text-charcoal-300 font-semibold hover:bg-charcoal-800 transition border border-charcoal-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 Cancel
                             </button>
                             <button
                                 type="submit"
                                 disabled={loading || !passcode}
-                                className="flex-1 py-3 px-4 rounded-xl text-white font-semibold transition bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                                className="flex-1 py-3 px-4 rounded-xl text-white font-semibold transition bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_15px_rgba(59,130,246,0.3)] focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 {loading ? 'Verifying...' : 'Enter'}
                             </button>
@@ -113,3 +103,7 @@ window.OpsAuthModal = () => {
         </div>
     );
 };
+
+if (typeof module !== 'undefined') {
+    module.exports = { OpsAuthModal: window.OpsAuthModal };
+}
