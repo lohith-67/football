@@ -3,7 +3,7 @@
 /**
  * Translates a given key using the translations object.
  */
-export function translate(key, language, translationsObj) {
+function translate(key, language, translationsObj) {
     if (!translationsObj) return key;
     const langDict = translationsObj[language] || translationsObj['en'];
     if (!langDict) return key;
@@ -14,7 +14,7 @@ export function translate(key, language, translationsObj) {
  * Calculates a route score based on the priority (Fastest vs Lowest Carbon).
  * Lower score is better.
  */
-export function scoreRoute(route, priority) {
+function scoreRoute(route, priority) {
     if (priority === 'Fastest') {
         // Time is primary, emissions are secondary tie-breaker
         const ecoPenalty = route.eco_friendly ? 0 : 5;
@@ -31,7 +31,7 @@ export function scoreRoute(route, priority) {
 /**
  * Looks up seat coordinates from a given seating chart.
  */
-export function getSeatCoordinates(section, row, seat, seatingChart) {
+function getSeatCoordinates(section, row, seat, seatingChart) {
     if (!seatingChart || !seatingChart[section]) return null;
     
     // Parse row and seat numbers to create a deterministic offset
@@ -52,7 +52,7 @@ export function getSeatCoordinates(section, row, seat, seatingChart) {
 /**
  * Classifies an incident description and returns a severity level and color.
  */
-export function classifyIncident(description) {
+function classifyIncident(description) {
     const text = description.toLowerCase();
     
     if (text.includes("fight") || text.includes("fire") || text.includes("medical emergency") || text.includes("weapon")) {
@@ -73,6 +73,15 @@ export function classifyIncident(description) {
 // Expose to window for browser usage without bundler
 if (typeof window !== 'undefined') {
     window.StadiumLogic = {
+        translate,
+        scoreRoute,
+        getSeatCoordinates,
+        classifyIncident
+    };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
         translate,
         scoreRoute,
         getSeatCoordinates,

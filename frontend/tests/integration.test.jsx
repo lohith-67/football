@@ -75,7 +75,7 @@ describe('OpsAuthModal Integration', () => {
         });
     });
 
-    it('displays error on empty passcode', async () => {
+    it('disables submit button on empty passcode', async () => {
         window.useAppContext = () => ({
             isOpsAuthModalOpen: true,
             setIsOpsAuthModalOpen: vi.fn(),
@@ -84,14 +84,10 @@ describe('OpsAuthModal Integration', () => {
         });
 
         render(<OpsAuthModal />);
-
-        // Submit without typing
-        fireEvent.click(screen.getByRole('button', { name: 'Enter' }));
-
-        await waitFor(() => {
-            expect(screen.getByText('Passcode is required')).toBeDefined();
-        });
-        expect(global.fetch).not.toHaveBeenCalled();
+        
+        // Passcode input is initially empty
+        const submitButton = screen.getByRole('button', { name: 'Enter' });
+        expect(submitButton.disabled).toBe(true);
     });
 
     it('displays generic error on malformed/500 API response', async () => {
